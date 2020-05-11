@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h2>Update</h2>
+            <a href="#" th:href="@{/product/}">display all products</a>
+            <form method="post" th:action="@{/product/newProduct}" th:object="${product}">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Product Id</label>
+                    <input th:field="*{id}" type="text" class="form-control" readonly id="exampleFormControlInput1" placeholder="">
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Product Name</label>
+                    <input th:field="*{name}" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Price</label>
+                    <input th:field="*{price}" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlSelect2">Category</label>
+                    <select multiple class="form-control" id="exampleFormControlSelect2" th:field="*{category.id}">
+                        <option th:each="c : ${cats}" th:value="${c.id}" th:text="${c.name}">
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Description</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{description}"></textarea>
+                </div>
+                <input type="submit" value="Add"> <a th:href="@{'/product/delete/' + ${id}}">Delete</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:spring="http://java.sun.com/xml/ns/javaee">
+
+
+<head th:replace="fragments/head :: head">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- Navigation -->
+    <nav th:replace="fragments/header :: header">
+
+
+    </nav>
+
+    <!-- Page Content -->
+
+    <div class="content">
+
+        <div class="container">
+
+
+                <div class="row justify-content-md-center">
+
+                    <div class="col-xs-12 col-md-offset-2 col-md-8">
+                        <div th:if="${errorMessge}" class="alert alert-danger"><span th:text="${errorMessge}"></span></div>
+                    </div>
+                </div>
+
+
+
+                <div class="row justify-content-md-center">
+                    <div class="col-xs-12 col-md-offset-2 col-md-8">
+                        <div th:if="${successMessge}" class="alert alert-success"><span th:text="${successMessge}"></span></div>
+                    </div>
+                </div>
+
+
+            <div class="row justify-content-md-center">
+
+                <div class="col-md-offset-3 col-md-6">
+
+                    <div class="panel panel-primary">
+
+                        <div class="panel-heading page-header">
+                            <h4>Login</h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <form th:action="@{/login}" method="POST" class="form-horizontal"
+                                  id="loginForm"
+                            >
+                                <div class="form-group">
+                                    <label for="username" class="col-md-4 control-label">Email: </label>
+                                    <div class="col-md-8">
+                                        <input type="text" name="email" id="email" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="col-md-4 control-label">Password: </label>
+                                    <div class="col-md-8">
+                                        <input type="password" name="password" id="password" class="form-control"/>
+                                    </div>
+                                </div>
+                                <input type="checkbox" name="remember-me" /> Remember Me?<br/>
+                                <div class="form-group">
+                                    <div class="col-md-offset-4 col-md-8">
+                                        <input type="submit" value="Login" class="btn btn-primary"/>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="panel-footer">
+                            <div class="text-center">
+                                New User - <a th:href="@{'/registration'}">Register Here</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- Footer comes here -->
+    <div th:replace="fragments/footer :: footer">
+
+
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <!-- Self coded javascript -->
+
+
+</div>
+
+</body>
+
+</html>
