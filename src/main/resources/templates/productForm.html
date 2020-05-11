@@ -1,48 +1,57 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+
+<head th:replace="fragments/head :: head">
 
 </head>
+
 <body>
 
-<div class="container">
-    <div class="row">
-        <div class="col-6">
-            <h2>Add New Book</h2>
-            <a href="#" th:href="@{/product/}">display all products</a>
-            <form method="post" th:action="@{/product/newProduct}" th:object="${product}">
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Product Name</label>
-                    <input th:field="*{name}" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
-                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Price</label>
-                    <input th:field="*{price}" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
-                </div>
+<div class="wrapper">
 
-                <div class="form-group">
-                    <label for="exampleFormControlSelect2">Category</label>
-                    <select multiple class="form-control" id="exampleFormControlSelect2" th:field="*{category.id}">
-                        <option th:each="c : ${cats}" th:value="${c.id}" th:text="${c.name}">
-                        </option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Description</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{description}"></textarea>
-                </div>
+    <!-- Navigation -->
+    <nav th:replace="fragments/header :: header">
 
-                <input type="file" path="imageFile"/>
-                <input type="submit" value="Add">
-            </form>
+
+    </nav>
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h2>Add New Book</h2>
+                <a href="#" th:href="@{/seller/product/}">display all products</a>
+                <form method="post" th:action="@{/seller/product/newProduct}" th:object="${product}">
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Product Name</label>
+                        <input th:field="*{name}" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Price</label>
+                        <input th:field="*{price}" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect2">Category</label>
+                        <select multiple class="form-control" id="exampleFormControlSelect2" th:field="*{category.id}">
+                            <option th:each="c : ${cats}" th:value="${c.id}" th:text="${c.name}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Description</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{description}"></textarea>
+                    </div>
+
+                    <input type="file" path="imageFile"/>
+                    <input type="submit" value="Add">
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
 
 <!--<form method="post" th:action="@{/product/newProduct}" th:object="${product}">
     &lt;!&ndash;<input th:field="*{id}"><br/>&ndash;&gt;
@@ -58,6 +67,11 @@
     <br/>
     <input type="submit" value="Add">
 </form>-->
+    <div th:replace="fragments/footer :: footer">
 
+
+    </div>
+    <div th:replace="fragments/footer :: scripts"></div>
+</div>
 </body>
 </html>

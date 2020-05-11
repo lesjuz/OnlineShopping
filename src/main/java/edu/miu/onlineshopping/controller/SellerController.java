@@ -1,6 +1,5 @@
 package edu.miu.onlineshopping.controller;
 
-
 import edu.miu.onlineshopping.domain.Category;
 import edu.miu.onlineshopping.domain.Product;
 import edu.miu.onlineshopping.service.CategoryServiceImpl;
@@ -19,15 +18,15 @@ import java.nio.file.FileSystemNotFoundException;
 import java.util.List;
 
 @Controller
-@RequestMapping({"/product"})
-public class ProductController {
+@RequestMapping(value = "/seller")
+public class SellerController {
     @Autowired
     ServletContext servletContext;
     @Autowired
     CategoryServiceImpl categoryService;
     @Autowired
     ProductServiceImpl productService;
-    @GetMapping("/newProduct")
+    @GetMapping("product/newProduct")
     public String getForm(Model model){
         Product product=new Product();
         model.addAttribute("product",product);
@@ -36,7 +35,7 @@ public class ProductController {
         model.addAttribute("cats",category);
         return "productForm";
     }
-    @GetMapping("/edit/{id}")
+    @GetMapping("product/edit/{id}")
     public String view(@PathVariable("id") Long id, Model model){
         Product product=productService.find(id);
         model.addAttribute("product",product);
@@ -45,7 +44,7 @@ public class ProductController {
         model.addAttribute("cats",category);
         return "viewProduct";
     }
-    @GetMapping("/delete/{id}")
+    @GetMapping("product/delete/{id}")
     public String delete(@PathVariable("id") Long id, Model model){
         System.out.println("DELETED "+id);
         Product p=productService.find(id);
@@ -55,14 +54,14 @@ public class ProductController {
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-        return "redirect:/product/";
+        return "redirect:/seller/";
     }
-    @PostMapping("/updateProduct")
+    @PostMapping("product/updateProduct")
     public String updateProduct(@ModelAttribute("product") Product product, Model model){
         productService.save(product);
-        return "redirect:/product/";
+        return "redirect:/seller/";
     }
-    @PostMapping("/newProduct")
+    @PostMapping("product/newProduct")
     public String saveProduct(@Valid @ModelAttribute("product") Product product, BindingResult rs, Model model){
         if(rs.hasErrors()){
             List<Category> category=categoryService.findAll();
@@ -84,10 +83,10 @@ public class ProductController {
             }
         }
         productService.save(product);
-        return "redirect:/product/";
+        return "redirect:/seller/";
     }
 
-    @GetMapping({"/"})
+    @GetMapping({"/","/product"})
     public String dis(Model model){
         List<Product> p=productService.findAll();
         model.addAttribute("products",p);

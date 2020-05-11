@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/h2-console/**").permitAll();
 
         http.authorizeRequests()
-                .antMatchers("/", "/login", "/registration", "/h2-console/**").permitAll()
+                .antMatchers( "/login", "/registration", "/h2-console/**").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/buyer/**").hasAuthority("BUYER")
                 .antMatchers("/seller/**").hasAuthority("SELLER")

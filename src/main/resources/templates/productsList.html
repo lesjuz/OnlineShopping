@@ -1,40 +1,57 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+
+<head th:replace="fragments/head :: head">
+
 </head>
+
 <body>
-<div class="container">
-    <div class="row">
-        <div class="col-8">
-            <h2>Products</h2>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Decription</th>
-            </tr>
-            </thead>
-            <tbody>
 
-            <a href="#" th:href="@{/product/newProduct}">Add New Product</a>
-            <tr th:each="c : ${products}">
-                <th scope="row" th:text="${c.id}">3</th>
-                <td th:text="${c.name}"></td>
-                <td th:text="${c.price}"></td>
-                <td th:text="${c.description}"></td>
+<div class="wrapper">
 
-                <td><a th:href="@{'/product/edit/' + ${c.id}}">view</a></td>
-            </tr>
-            </tbody>
-        </table>
+    <!-- Navigation -->
+    <nav th:replace="fragments/header :: header">
+
+
+    </nav>
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <h2>Products</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Decription</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <a href="#" th:href="@{/seller/product/newProduct}">Add New Product</a>
+                        <tr th:each="c : ${products}">
+                            <th scope="row" th:text="${c.id}">3</th>
+                            <td th:text="${c.name}"></td>
+                            <td th:text="${c.price}"></td>
+                            <td th:text="${c.description}"></td>
+
+                            <td><a th:href="@{'/seller/product/edit/' + ${c.id}}">view</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
+
+    <div th:replace="fragments/footer :: footer">
+
+
+    </div>
+    <div th:replace="fragments/footer :: scripts"></div>
 </div>
 </body>
 </html>

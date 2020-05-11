@@ -16,7 +16,7 @@ import java.util.List;
 public class AdminController {
     @Autowired
     private  UserService userService;
-    @GetMapping(value = "/index")
+    @GetMapping(value = "/")
     public String getUsers(User user, Model model){
         List<User> users=new ArrayList<>();
         users=userService.getAll();
@@ -43,5 +43,5 @@ public class AdminController {
             userService.updateUser(updatedUser);
 
         }
-        return "redirect:/admin/index";    }
+        return "redirect:/admin/";    }
 }
