@@ -17,38 +17,76 @@
     </nav>
 <div class="content">
     <div class="container">
-        <div class="row">
-            <div class="col-6">
-                <h2>Add New Book</h2>
-                <a href="#" th:href="@{/seller/product/}">display all products</a>
-                <form method="post" th:action="@{/seller/product/newProduct}" th:object="${product}">
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">Product Name</label>
-                        <input th:field="*{name}" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
-                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlInput1">Price</label>
-                        <input th:field="*{price}" type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
-                    </div>
+        <div class="row justify-content-md-center">
 
-                    <div class="form-group">
-                        <label for="exampleFormControlSelect2">Category</label>
-                        <select multiple class="form-control" id="exampleFormControlSelect2" th:field="*{category.id}">
-                            <option th:each="c : ${cats}" th:value="${c.id}" th:text="${c.name}">
-                            </option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Description</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{description}"></textarea>
-                    </div>
+            <div class="col-md-9 col-md-offset-3">
 
-                    <input type="file" path="imageFile"/>
-                    <input type="submit" value="Add">
-                </form>
+                    <h2>Add New Book</h2>
+                    <a href="#" th:href="@{/seller/product/}">display all products</a>
+                    <form method="post" th:action="@{/seller/product/newProduct}" th:object="${product}" enctype="multipart/form-data">
+
+                        <div class="form-group row has-danger">
+                            <label class="control-label col-md-2">Product Name</label>
+                            <div class="col-md-6">
+                                <input type="text" th:field="*{name}" class="form-control" th:errorclass="is-invalid"
+                                       placeholder="Product Name" />
+                                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"class="invalid-feedback"></div>
+                            </div>
+
+                        </div>
+                        <div class="form-group row has-danger">
+                            <label class="control-label col-md-2">Price</label>
+                            <div class="col-md-6">
+                                <input type="text" th:field="*{unitPrice}" class="form-control" th:errorclass="is-invalid"
+                                       placeholder="Unit Price" />
+                                <div th:if="${#fields.hasErrors('unitPrice')}" th:errors="*{unitPrice}"class="invalid-feedback"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row has-danger">
+                            <label class="control-label col-md-2">Quantity</label>
+                            <div class="col-md-6">
+                                <input type="number" th:field="*{unitsInStock}" class="form-control" th:errorclass="is-invalid"
+                                />
+                                <div th:if="${#fields.hasErrors('unitsInStock')}" th:errors="*{unitsInStock}"class="invalid-feedback"></div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group row has-danger">
+                            <label class="control-label col-md-2">Description</label>
+                            <div class="col-md-6">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="*{description}" th:errorclass="is-invalid"></textarea>
+                                <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"class="invalid-feedback"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="control-label col-md-2">Category</label>
+                            <div class="col-md-6">
+                                <select multiple class="form-control" id="exampleFormControlSelect2" th:field="*{category.id}">
+                                    <option th:each="c : ${cats}" th:value="${c.id}" th:text="${c.name}">
+                                    </option>
+                                </select>
+                                <div th:if="${#fields.hasErrors('category')}" th:errors="*{category}"  class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="form-group row has-danger">
+                            <label class="control-label col-md-2">Product Image</label>
+                            <div class="col-md-6">
+                                <input type="file" th:field="*{imageFile}" />
+                            </div>
+                        </div>
+
+                        <input type="submit" value="Add">
+                    </form>
+
             </div>
         </div>
+
     </div>
 </div>
 

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+
+<head th:replace="fragments/head :: head">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- Navigation -->
+    <nav th:replace="fragments/header :: header">
+
+
+    </nav>
+
+    <!-- Page Content -->
+
+
+    <section>
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Products</h1>
+                <p>All the available products in our store</p>
+            </div>
+        </div>
+    </section>
+<div class="content">
+    <section class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-3" th:each="product : ${products}">
+                <div class="thumbnail">
+                    <div class="caption">
+                        <h3 th:text="${product.name}"></h3>
+                        <p th:text="${product.description}"></p>
+                        <p>Price: $<span th:text="${product.unitPrice}" th:remove="tag"></span></p>
+                        <p>Available: <span th:text="${product.unitsInStock}" th:remove="tag"></span> units in stock</p>
+                        <p>
+                            <a th:href="@{/buyer/product(id=${product.id})}" class="btn btn-primary">
+                                <span class="glyphicon-info-sign glyphicon"/></span> Details
+                            </a>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+    <!-- Footer comes here -->
+    <div th:replace="fragments/footer :: footer">
+
+
+    </div>
+
+    <div th:replace="fragments/footer :: scripts"></div>
+    <!-- Self coded javascript -->
+    <script th:src="@{/js/app.js}"></script>
+
+</div>
+
+</body>
+
+</html>

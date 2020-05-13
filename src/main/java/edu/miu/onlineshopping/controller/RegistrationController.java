@@ -1,6 +1,7 @@
 package edu.miu.onlineshopping.controller;
 
 
+import edu.miu.onlineshopping.domain.Cart;
 import edu.miu.onlineshopping.domain.Role;
 import edu.miu.onlineshopping.domain.User;
 import edu.miu.onlineshopping.service.RoleService;
@@ -57,6 +58,18 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return "signup";
         } else {
+            String role = user.getRoles().stream().findFirst().get().getRole();
+            user.setActive(1);
+            if(role.equals("SELLER")){
+                user.setActive(0);
+            }
+            if(role.equals("BUYER")){
+
+                // create a new cart
+                Cart cart = new Cart();
+                user.setCart(cart);
+
+            }
 
             userService.saveUser(user);
             rd.addFlashAttribute("userCreated","User successfully created!");

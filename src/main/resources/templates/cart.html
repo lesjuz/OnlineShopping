@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  >
+
+
+<head th:replace="fragments/head :: head">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- Navigation -->
+    <nav th:replace="fragments/header :: header">
+
+
+    </nav>
+
+    <!-- Page Content -->
+<section>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Shopping Cart</h1>
+        </div>
+    </div>
+</section>
+    <div class="content">
+        <span th:with="availableCount=${session.userModel.cart.cartLines}"></span>
+        <section class="container" >
+            <div class="alert alert-info alert-auto-close" th:if="${message ne null}">
+                <span class="text-center" th:text="${message}"></span>
+            </div>
+            <div class="alert alert-danger alert-dismissible" role="alert" id="cart-alert" style="display: none">
+                The maximum quantity of product should not exceed 3!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div th:if="${#lists.isEmpty(cartLines)}"><h3 class="text-center">Your Cart is Empty!</h3></div>
+            <div th:unless="${#lists.isEmpty(cartLines)}">
+                <div>
+                    <a th:href="@{/buyer/cart/validate}" class="btn btn-success pull-right"> <i
+                            class="fa fa-shopping-cart"></i> Check out
+                    </a>
+                </div>
+                <table class="table table-hover">
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Unit price</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr th:each="item: ${cartLines}">
+                        <td th:text="${item.product.id}"></td>
+                        <td th:text="${item.product.name}"></td>
+                        <td th:text="${item.product.unitPrice}"></td>
+                        <td>
+                            <input type="number" th:id="${'count_'+item.id}" class="form-control text-center" th:value="${item.productCount}" min="1" max="3">
+                        </td>
+                        <td th:text="${item.total}"></td>
+                        <td>
+                        <span th:if="${item.available == true}">
+                            <button type="button" name="refreshCart" id="refreshCart" class="btn btn-info" th:value="${item.id}">
+                                <span class="glyphicon glyphicon-refresh">Update</span>
+                            </button>
+                        </span>
+                            <a th:href="@{/buyer/cart/{cartLineId}/remove(cartLineId=${item.id})}" class="btn btn-danger product-remove-btn" >
+                                <span class="glyphicon glyphicon-remove" /></span> Remove</a>
+
+                        </td>
+                    </tr>
+                </table>
+                <table id="cart_table" class="table table-hover">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th><strong>Grand Total: </strong></th>
+                        <th th:text="${session.userModel.cart.totalPrice}"></th>
+                        <th></th>
+                    </tr>
+                </table>
+
+                <a th:href="@{/buyer/products}"
+                   class="btn btn-outline-secondary"> <span
+                        class="fa fa-hand-point-left fa-lg"></span> Continue shopping
+                </a>
+            </div>
+
+
+        </section>
+    </div>
+
+
+    <!-- Footer comes here -->
+    <div th:replace="fragments/footer :: footer">
+
+
+    </div>
+
+    <div th:replace="fragments/footer :: scripts"></div>
+    <!-- Self coded javascript -->
+    <script th:src="@{/js/app.js}"></script>
+
+</div>
+
+</body>
+
+</html>

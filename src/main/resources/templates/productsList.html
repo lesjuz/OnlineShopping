@@ -35,7 +35,7 @@
                         <tr th:each="c : ${products}">
                             <th scope="row" th:text="${c.id}">3</th>
                             <td th:text="${c.name}"></td>
-                            <td th:text="${c.price}"></td>
+                            <td th:text="${c.unitPrice}"></td>
                             <td th:text="${c.description}"></td>
 
                             <td><a th:href="@{'/seller/product/edit/' + ${c.id}}">view</a></td>

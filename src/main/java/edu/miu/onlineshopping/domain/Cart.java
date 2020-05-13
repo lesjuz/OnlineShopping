@@ -1,37 +1,31 @@
 package edu.miu.onlineshopping.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
-@Setter
-@Getter
-@ToString
-@NoArgsConstructor
+import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
-public class Cart implements Serializable {
+@Table(name = "carts")
+@Getter
+@Setter
 
-        /**
-         *
-         */
-        private static final long serialVersionUID = 1L;
-
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+public class Cart {
 
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        private long id;
-        @Column(name = "grand_total")
-        private double grandTotal;
+        private Long id;
+
+        private double totalPrice;
+
+        @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+        private User user;
+
         @Column(name = "cart_lines")
         private int cartLines;
 
-        @OneToOne
-        private User user;
-
-
-    }
-
+}

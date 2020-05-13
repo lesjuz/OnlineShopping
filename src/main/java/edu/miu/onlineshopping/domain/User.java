@@ -27,7 +27,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private int id;
+    private Long id;
 
     @Column(name = "email")
     @Email(message = "Please provide a valid Email")
@@ -64,5 +64,11 @@ public class User {
 
     @Transient
     private String confirmPassword;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Cart cart;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private ShoppingHistory shoppingHistory;
 
 }

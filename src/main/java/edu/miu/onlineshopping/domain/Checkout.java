@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.List;
 @Setter
@@ -22,7 +21,7 @@ public class Checkout implements Serializable {
     private User user;
     private Address shipping;
     private Cart cart;
-    private List<CartLine> cartLines;
+    private List<CartItem> cartItems;
     private OrderDetail orderDetail;
     private double checkoutTotal;
 

@@ -1,9 +1,6 @@
 package edu.miu.onlineshopping.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -12,10 +9,16 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
-
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,72 +29,32 @@ public class Product {
     @NotEmpty(message = "cannot be null")
     private String description;
 
-    @NotNull(message = "not null")
-    private Integer price;
-
     private String image;
 
     @Transient
     private MultipartFile imageFile;
 
-    public MultipartFile getImageFile() {
-        return imageFile;
-    }
-
-    public void setImageFile(MultipartFile imageFile) {
-        this.imageFile = imageFile;
-    }
 
     @ManyToOne
     @JoinColumn
     private Category category;
 
-    public Long getId() {
-        return id;
-    }
+    @NotNull(message = "not null")
+    @Column(name = "price")
+    private double unitPrice;
+    @NotNull(message = "Please Select quantity")
+    @Min(value = 1)
+    private int unitsInStock;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @OneToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private CartItem cartItem;
 
-    public String getName() {
-        return name;
-    }
+    @Column(name = "is_active")
+    private boolean active=true;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private User supplier;
 }
 
