@@ -1,21 +1,23 @@
 package edu.miu.onlineshopping.controller;
 
 
-import edu.miu.onlineshopping.domain.Cart;
-import edu.miu.onlineshopping.domain.CartItem;
-import edu.miu.onlineshopping.domain.User;
+import edu.miu.onlineshopping.domain.*;
 import edu.miu.onlineshopping.service.CartItemService;
 import edu.miu.onlineshopping.service.CartService;
+import edu.miu.onlineshopping.service.CheckoutService;
 import edu.miu.onlineshopping.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -24,6 +26,9 @@ public class CartController {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private CheckoutService checkoutService;
 
     @RequestMapping("/show")
     public ModelAndView showCart(@RequestParam(name = "result", required = false) String result) {
@@ -104,8 +109,60 @@ public class CartController {
             return "redirect:buyer/cart/show";
         }
         else {
-            return "redirect:buyer/cart/checkout";
+            return "redirect:/buyer/cart/checkout";
         }
+    }
+
+
+    @GetMapping("/checkout")
+    public String saveShippingAddress(@ModelAttribute("address")Address address,Model model){
+
+
+        return "checkout";
+    }
+    @PostMapping("/checkout")
+    public String saveShipping(@Valid Address address, BindingResult bindingResult,Authentication authentication, Model model,HttpSession session) throws Exception {
+        String name= authentication.getName();
+        if (bindingResult.hasErrors()) {
+            return "checkout";
+        }
+        CheckoutModel checkoutModel=checkoutService.init(name);
+        checkoutService.saveAddress(checkoutModel,address);
+        session.setAttribute("shippingAddress",address);
+        return "redirect:/buyer/cart/checkout/pay";
+    }
+
+    @RequestMapping("/checkout/pay")
+    public String checkout(Authentication authentication,Model model){
+        String name= authentication.getName();
+
+        try {
+
+            model.addAttribute("checkoutModel",checkoutService.init(name));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return "checkout2";
+    }
+
+    @RequestMapping("/order/confirm")
+    public String confirmOrder(Authentication authentication,Model model,HttpSession session){
+        String name= authentication.getName();
+
+        try {
+            Address address= (Address) session.getAttribute("shippingAddress");
+            CheckoutModel cm=checkoutService.saveOrder(checkoutService.init(name),address);
+
+            model.addAttribute("orderDetail",cm.getOrderDetail());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return "orderReceipt";
     }
 }
 

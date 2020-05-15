@@ -32,6 +32,13 @@ public class Address implements Serializable {
     private String zipCode;
     @NotBlank(message = "Please enter street!")
     private String street;
+    @Column(name="is_shipping")
+    private boolean shipping=false;
+    @Column(name="is_billing")
+    private boolean billing=false;
+
+    @Column(name = "user_id")
+    private Long userId;
 
 
 

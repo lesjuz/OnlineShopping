@@ -4,7 +4,7 @@ $(document).ready(function() {
     } );
 
     $("#cart-alert").hide();
-    $("#refreshCart").on('click',function(){
+    $('button[name="refreshCart"]').on('click',function(){
         const cartLineId = $(this).attr('value');
         const countField = $('#count_' + cartLineId);
         const originalCount = countField.attr('value');
@@ -19,8 +19,7 @@ $(document).ready(function() {
             else {
                 // use the window.location.href property to send the request to the server
                 const root=window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
-                alert(root);
-                var updateUrl = root + '/cart/' + cartLineId + '/update?count=' + countField.val();
+                var updateUrl = root + '/cart/' + cartLineId +'/update?count='+countField.val();
                 window.location.href = updateUrl;
             }
         }

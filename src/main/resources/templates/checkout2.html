@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  >
+
+
+<head th:replace="fragments/head :: head">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- Navigation -->
+    <nav th:replace="fragments/header :: header">
+
+
+    </nav>
+
+    <!-- Page Content -->
+    <section>
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Checkout</h1>
+            </div>
+        </div>
+    </section>
+    <div class="content">
+
+        <div class="container">
+
+            <div class="row">
+
+
+                    <!--  To display all the goods -->
+                    <div class="col-md-6">
+
+                        <div class="row">
+
+
+
+                                        <table class="table table-borderless">
+                                            <tr>
+                                                <th>Item</th>
+                                                <th>Quantity</th>
+                                                <th>Price</th>
+                                            </tr>
+                                            <tr th:each="cartLine:${checkoutModel.cartItems}">
+                                                <td th:text="${cartLine.product.name}"></td>
+                                                <td th:text="${cartLine.productCount}"></td>
+                                                <td>&dollar;<span th:text="${cartLine.buyingPrice}"></span></td>
+                                            </tr>
+                                        </table>
+
+                                    <hr/>
+                                    <div class="text-right">
+                                        <h5>Final Payment: &dollar; <strong th:text="${checkoutModel.checkoutTotal}" ></strong></h5>
+                                    </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    Payment Details
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <form role="form"  >
+                                    <div class="form-group">
+                                        <label for="cardNumber">
+                                            CARD NUMBER</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number"
+                                                   required autofocus />
+                                            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-9 col-md-9">
+                                            <div class="form-group">
+                                                <label for="expityMonth">EXPIRY DATE</label>
+                                                <br/>
+                                                <div class="row">
+                                                    <div class="col-xs-6 col-lg-6 pl-ziro">
+                                                        <input type="text" class="form-control" id="expityMonth" placeholder="MM" required />
+                                                    </div>
+                                                    <div class="col-xs-6 col-lg-6 pl-ziro">
+                                                        <input type="text" class="form-control" id="expityYear" placeholder="YY" required /></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3 col-md-3 pull-right">
+                                            <div class="form-group">
+                                                <label for="cvCode">
+                                                    CV CODE</label>
+                                                <input type="text" class="form-control" id="cvCode" placeholder="CV" required />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                                <a th:href="@{/buyer/cart/order/confirm}" class="btn btn-success btn-lg btn-block">Pay</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer comes here -->
+    <div th:replace="fragments/footer :: footer">
+
+
+    </div>
+
+    <div th:replace="fragments/footer :: scripts"></div>
+    <!-- Self coded javascript -->
+    <script th:src="@{/js/app.js}"></script>
+
+</div>
+
+</body>
+
+</html>

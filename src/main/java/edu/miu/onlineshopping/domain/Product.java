@@ -56,5 +56,7 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     private User supplier;
+
+    private int purchases=0;
 }
 

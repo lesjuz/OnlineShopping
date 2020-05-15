@@ -17,7 +17,7 @@ public interface CartItemRepository extends CrudRepository<CartItem, Long> {
     @Query(value="SELECT * FROM CART_ITEMS WHERE cart_Id =?1",nativeQuery=true)
     List<CartItem> listAvailable(long cartId);
 
-    @Query(value="SELECT * FROM CART_ITEMS WHERE cart_Id =?1 = ?1 AND is_available = true",nativeQuery=true)
+    @Query(value="SELECT * FROM CART_ITEMS WHERE cart_Id =?1 AND is_available = true",nativeQuery=true)
     List<CartItem> list(long cartId);
 
 

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+
+<head th:replace="fragments/head :: head">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- Navigation -->
+    <nav th:replace="fragments/header :: header">
+
+
+    </nav>
+
+    <!-- Page Content -->
+
+    <div class="content">
+
+        <div class="container">
+
+
+            <div class="alert alert-success">
+                <h3 class="text-center">Your Order is Confirmed!!</h3>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="invoice-title">
+                        <h2>Invoice</h2><h3 class="pull-right">Order # <strong th:text="${orderDetail.id}" ></strong></h3>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <address>
+                                <strong>Billed To:</strong><br>
+                                <span th:text="${orderDetail.user.name +' '+orderDetail.user.lastName}"></span><br>
+                                <span th:text="${orderDetail.billing.street}"></span><br>
+                                <span th:text="${orderDetail.billing.city +'-'+ orderDetail.billing.zipCode}"></span><br>
+                                <span th:text="${orderDetail.billing.state +'-'+ orderDetail.billing.country}"></span><br>
+                            </address>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <address>
+                                <strong>Shipped To:</strong><br>
+                                <span th:text="${orderDetail.user.name +' '+orderDetail.user.lastName}"></span><br>
+                                <span th:text="${orderDetail.shipping.street}"></span><br>
+                                <span th:text="${orderDetail.shipping.city +'-'+ orderDetail.shipping.zipCode}"></span><br>
+                                <span th:text="${orderDetail.shipping.state +'-'+ orderDetail.shipping.country}"></span><br>
+                            </address>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <address>
+                                <strong>Payment Method:</strong><br>
+                                Card Payment <br>
+                                <span th:text="${orderDetail.user.email}"></span>
+                            </address>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <address>
+                                <strong>Order Date:</strong><br>
+                                <span th:text="${orderDetail.orderDate}"></span><br><br>
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><strong>Order summary</strong></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-condensed">
+                                    <thead>
+                                    <tr>
+                                        <td><strong>Item</strong></td>
+                                        <td class="text-center"><strong>Price</strong></td>
+                                        <td class="text-center"><strong>Quantity</strong></td>
+                                        <td class="text-right"><strong>Totals</strong></td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                                    <th:block  th:each="orderItem:${orderDetail.orderItems}">
+                                        <tr>
+                                            <td th:text="${orderItem.product.name}"></td>
+                                            <td class="text-center">&dollar;<span th:text="${orderItem.buyingPrice}"></span> </td>
+                                            <td class="text-center" th:text="${orderItem.productCount}"></td>
+                                            <td class="text-right">&dollar;<span th:text="${orderItem.total}"></span> </td>
+                                        </tr>
+                                    </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <a th:href="@{/buyer/products}" class="btn btn-lg btn-warning">Continue Shopping</a>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- Footer comes here -->
+    <div th:replace="fragments/footer :: footer">
+
+
+    </div>
+
+    <div th:replace="fragments/footer :: scripts"></div>
+    <!-- Self coded javascript -->
+    <script th:src="@{/js/app.js}"></script>
+
+</div>
+
+</body>
+
+</html>

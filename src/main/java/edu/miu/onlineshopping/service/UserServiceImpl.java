@@ -1,7 +1,9 @@
 package edu.miu.onlineshopping.service;
 
 
+import edu.miu.onlineshopping.domain.Address;
 import edu.miu.onlineshopping.domain.User;
+import edu.miu.onlineshopping.repository.AddressRepository;
 import edu.miu.onlineshopping.repository.RoleRepository;
 import edu.miu.onlineshopping.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -36,6 +40,8 @@ public class UserServiceImpl implements UserService {
     public User updateUser(User user){
         return userRepository.save(user);
     }
+
+
     public List<User> getAll(){
         return (List<User>) userRepository.findAll();
     }

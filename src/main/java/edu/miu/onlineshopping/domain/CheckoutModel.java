@@ -1,9 +1,6 @@
 package edu.miu.onlineshopping.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -11,7 +8,8 @@ import java.util.List;
 @Getter
 @ToString
 @NoArgsConstructor
-public class Checkout implements Serializable {
+@AllArgsConstructor
+public class CheckoutModel implements Serializable {
 
     /**
      *

@@ -1,9 +1,12 @@
 package edu.miu.onlineshopping.controller;
 
 
+import edu.miu.onlineshopping.domain.Address;
 import edu.miu.onlineshopping.domain.Cart;
 import edu.miu.onlineshopping.domain.Role;
 import edu.miu.onlineshopping.domain.User;
+import edu.miu.onlineshopping.service.AddressService;
+import edu.miu.onlineshopping.service.CartService;
 import edu.miu.onlineshopping.service.RoleService;
 import edu.miu.onlineshopping.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,12 @@ public class RegistrationController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private CartService cartService;
+
+    @Autowired
+    private AddressService addressService;
 
     @ModelAttribute("roles")
     public List<Role> getRoles(Model model) {
@@ -68,10 +77,17 @@ public class RegistrationController {
                 // create a new cart
                 Cart cart = new Cart();
                 user.setCart(cart);
+                cart.setUser(user);
+                cartService.saveCart(cart);
 
             }
-
-            userService.saveUser(user);
+            Address address =user.getAddress();
+            User newUser=userService.saveUser(user);
+            address.setUserId(newUser.getId());
+            if(role.equals("BUYER")){
+                address.setBilling(true);
+            }
+            addressService.saveAddress(address);
             rd.addFlashAttribute("userCreated","User successfully created!");
             return "redirect:/login";
 

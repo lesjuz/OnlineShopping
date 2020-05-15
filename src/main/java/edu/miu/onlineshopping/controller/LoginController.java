@@ -1,5 +1,7 @@
 package edu.miu.onlineshopping.controller;
 
+import edu.miu.onlineshopping.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,8 +15,9 @@ import java.util.Collection;
 
 @Controller
 public class LoginController {
-
-    @RequestMapping({"/",""})
+     @Autowired
+    ProductService productService;
+    @RequestMapping({"/"})
     public String root(Authentication authentication) {
        if(authentication.isAuthenticated()){
            if(hasRole("SELLER")){
@@ -27,12 +30,16 @@ public class LoginController {
                return "redirect:/buyer/";
            }
        }
-        return "redirect:/login";
+       else{
+           return "redirect:/home";
+       }
+        return "";
     }
 
-    @RequestMapping("/index")
-    public String index() {
-        return "index";
+    @RequestMapping("/home")
+    public String index(Model model) {
+        model.addAttribute("products", productService.findAll());
+        return "allProducts";
     }
 
 

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  >
+
+
+<head th:replace="fragments/head :: head">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- Navigation -->
+    <nav th:replace="fragments/header :: header">
+
+
+    </nav>
+
+    <!-- Page Content -->
+    <section>
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Checkout</h1>
+            </div>
+        </div>
+    </section>
+    <div class="content">
+
+        <div class="container">
+
+            <div class="row justify-content-md-center">
+
+                <div class="col-md-9 col-md-offset-3">
+
+                    <div class="panel panel-primary">
+
+                        <div class="panel-heading">
+                            <h4>Shipping Address</h4>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <form
+                                    method="POST"
+                                    th:action="@{/buyer/cart/checkout}"
+                                    th:object="${address}"
+                                    class="form-horizontal"
+                                    id="registerForm"
+                            >
+
+
+
+
+                                <div class="form-group row has-danger">
+                                    <label class="control-label col-md-2" for="street">Street</label>
+                                    <div class="col-md-6">
+                                        <input type="text" th:field="*{street}" class="form-control" th:errorclass="is-invalid"
+                                               placeholder="Enter Street" />
+                                        <div th:if="${#fields.hasErrors('street')}" th:errors="*{street}" class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group row has-danger">
+                                    <label class="control-label col-md-2" for="city">City</label>
+                                    <div class="col-md-6">
+                                        <input type="text" th:field="*{city}" class="form-control" th:errorclass="is-invalid"
+                                               placeholder="Enter City Name" />
+                                        <div th:if="${#fields.hasErrors('city')}" th:errors="*{city}" class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row has-danger">
+                                    <label class="control-label col-md-2" for="postalCode">Zip code</label>
+                                    <div class="col-md-6">
+                                        <input type="text" th:field="*{zipCode}" class="form-control" th:errorclass="is-invalid"
+                                               placeholder="XXXXX" />
+                                        <div th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}" class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row has-danger">
+                                    <label class="control-label col-md-2" for="state">State</label>
+                                    <div class="col-md-6">
+                                        <input type="text" th:field="*{state}" class="form-control" th:errorclass="is-invalid"
+                                               placeholder="Enter State Name" />
+                                        <div th:if="${#fields.hasErrors('state')}" th:errors="*{state}" class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row has-danger">
+                                    <label class="control-label col-md-2" for="country">Country</label>
+                                    <div class="col-md-6">
+                                        <input type="text" th:field="*{country}" class="form-control" th:errorclass="is-invalid"
+                                               placeholder="Enter Country Name" />
+                                        <div th:if="${#fields.hasErrors('country')}" th:errors="*{country}" class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-offset-4 col-md-8">
+                                        <button type="submit" name="_eventId_billing" class="btn btn-primary">
+                                            Save Shipping Address <span class="glyphicon glyphicon-chevron-right"></span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer comes here -->
+    <div th:replace="fragments/footer :: footer">
+
+
+    </div>
+
+    <div th:replace="fragments/footer :: scripts"></div>
+    <!-- Self coded javascript -->
+    <script th:src="@{/js/app.js}"></script>
+
+</div>
+
+</body>
+
+</html>
