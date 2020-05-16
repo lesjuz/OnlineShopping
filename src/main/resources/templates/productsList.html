@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 
 <head th:replace="fragments/head :: head">
@@ -24,21 +24,31 @@
                         <thead>
                         <tr>
                             <th scope="col">Id</th>
+                            <th scope="col">Photo</th>
                             <th scope="col">Name</th>
                             <th scope="col">Price</th>
                             <th scope="col">Decription</th>
+                            <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody>
 
-                        <a href="#" th:href="@{/seller/product/newProduct}">Add New Product</a>
+                        <a class="btn btn-success" href="#" th:href="@{/seller/product/newProduct}">Add New Product</a>
                         <tr th:each="c : ${products}">
-                            <th scope="row" th:text="${c.id}">3</th>
-                            <td th:text="${c.name}"></td>
-                            <td th:text="${c.unitPrice}"></td>
-                            <td th:text="${c.description}"></td>
 
-                            <td><a th:href="@{'/seller/product/edit/' + ${c.id}}">view</a></td>
+                                <th scope="row" th:text="${c.id}">3</th>
+                                <td>
+                                    <img class="img-fluid product-img"  th:if="${c.image}"  th:src="@{/images/{imgName}(imgName=${c.image})}" />
+                                    <img class="img-fluid product-img"  th:unless="${c.image}"  th:src="@{/images/default.jpg}" />
+                                </td>
+                                <td th:text="${c.name}"></td>
+                                <td th:text="${c.unitPrice}"></td>
+                                <td th:text="${c.description}"></td>
+
+                                <td><a class="btn btn-dark" th:href="@{/seller/product/edit/{id}(id=${c.id})}">Edit</a>
+                                    <a class="btn btn-danger"th:if="${c.unitsInStock>0}" th:href="@{/seller/product/delete/{productId}(productId=${c.id})}">Delete</a>
+                                </td>
+
                         </tr>
                         </tbody>
                     </table>

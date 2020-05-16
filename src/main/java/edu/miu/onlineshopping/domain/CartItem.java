@@ -16,26 +16,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class CartItem {
 
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    private Product product;
-
-    private int quantity;
-    private BigDecimal totalItemPrice;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private Cart cart;
-
-    public BigDecimal calculateItemCost(){
-        product.setUnitsInStock(product.getUnitsInStock() - quantity);
-        totalItemPrice = product.getUnitPrice().multiply(BigDecimal.valueOf(quantity));
-        return totalItemPrice;
-    }*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

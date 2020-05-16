@@ -79,7 +79,7 @@ public class CartServiceImpl implements CartService {
 			// add a new cartLine if a new product is getting added
 
 			cartLine = new CartItem();
-			Product product = productService.findById(productId).get();
+			Product product = productService.findById(productId);
 			// transfer the product details to cartLine
 			cartLine.setCartId(cart.getId());
 			cartLine.setProduct(product);

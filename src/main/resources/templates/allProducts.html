@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 
 <head th:replace="fragments/head :: head">
@@ -32,6 +32,8 @@
         <div class="row">
             <div class="col-sm-6 col-md-3" th:each="product : ${products}">
                 <div class="thumbnail">
+                    <img class="img-fluid product-img"  th:if="${product.image}"  th:src="@{/images/{imgName}(imgName=${product.image})}" />
+                    <img class="img-fluid product-img"  th:unless="${product.image}"  th:src="@{/images/default.jpg}" />
                     <div class="caption">
                         <h3 th:text="${product.name}"></h3>
                         <p th:text="${product.description}"></p>
@@ -52,7 +54,7 @@
 
 
     <!-- Footer comes here -->
-    <div th:replace="fragments/footer :: footer">
+    <div  th:replace="fragments/footer :: footer">
 
 
     </div>

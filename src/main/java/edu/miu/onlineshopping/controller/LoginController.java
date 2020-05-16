@@ -39,7 +39,7 @@ public class LoginController {
     @RequestMapping("/home")
     public String index(Model model) {
         model.addAttribute("products", productService.findAll());
-        return "allProducts";
+        return "index";
     }
 
 
@@ -51,7 +51,7 @@ public class LoginController {
         String successMessge=null;
         String userCreated= (String) model.asMap().get("userCreated");
         if (error != null) {
-            errorMessge = "Username or Password is incorrect !!";
+            errorMessge = "Username or Password is incorrect or your account is not active !!";
         }
         if (logout != null) {
             successMessge = "You have been successfully logged out !!";
@@ -62,7 +62,7 @@ public class LoginController {
         }
         model.addAttribute("errorMessge", errorMessge);
         model.addAttribute("successMessge", successMessge);
-        return "login";
+        return "login2";
     }
     private boolean hasRole(String role) {
         Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>)

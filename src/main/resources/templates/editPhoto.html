@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head th:replace="fragments/head :: head">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- Navigation -->
+    <nav th:replace="fragments/header :: header">
+
+
+    </nav>
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <h2>Update Product Photo</h2>
+                    <form th:object="${productImageModel}" action="#" th:action="@{/seller/product/edit/image/{productId}(productId=${productImageModel.id})}" enctype="multipart/form-data"
+                          method="post">
+                        <h4>Product Photo</h4>
+                        <div class="form-group">
+
+                            <img class="img-fluid product-img"  th:if="${productImageModel.imgName}"  th:src="@{/images/{imgName}(imgName=*{imgName})}" />
+                            <img class="img-fluid product-img"  th:unless="${productImageModel.imgName}"  th:src="@{/images/default.jpg}" />
+                            <label for="image">Product photo:</label>
+                            <input id="image" name="image" type="file" class="form-control-file">
+
+                        </div>
+                        <div id="form-group">
+                            <input class="btn btn-primary btn-sm" id="submit" type="submit" value="Update Image"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="fragments/footer :: footer">
+
+
+    </div>
+
+    <div th:replace="fragments/footer :: scripts"></div>
+</div>
+</body>
+</html>

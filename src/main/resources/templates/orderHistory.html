@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head th:replace="fragments/head :: head">
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- Navigation -->
+    <nav th:replace="fragments/header :: header">
+
+
+    </nav>
+    <section>
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Orders</h1>
+            </div>
+        </div>
+    </section>
+    <div class="content">
+
+        <div class="container">
+
+
+            <div class="row justify-content-md-center">
+
+                <div class="col-md-9 col-md-offset-3">
+
+
+                    <div th:if="${#lists.isEmpty(orders)}"><h3 class="text-center">Your do not order yet!</h3></div>
+                    <div th:unless="${#lists.isEmpty(orders)}">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+
+                            <th scope="col">Ordered products</th>
+                            <th scope="col">Unit Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total sum</th>
+                            <th scope="col">Dates</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <th:block th:each="orderDetail,iter: ${orders}">
+                            <tr th:each="order : ${orderDetail.orderItems}">
+
+                                <td scope="row" th:text="${iter.index+1}">1</td>
+                                <td scope="row" th:text="${order.product.name}"></td>
+                                <td scope="row" th:text="${order.buyingPrice}"></td>
+                                <td scope="row" th:text="${order.productCount}"></td>
+                                <td scope="row" th:text="${order.total}"></td>
+                                <td th:text="${'Ordered: ' + order.orderDate}"></td>
+                                <td th:text="${order.status}"></td>
+                                <td>
+                                    <a th:if="${order.isStatusCreated()}" th:href="@{/buyer/order/cancel/{orderId}(orderId=${order.id})}" class="cancelOrder">Cancel
+                                        order</a>
+                                    <a target="_blank" th:if="${order.isStatusCreated() ||order.isStatusShipped() || order.isStatusDelivered() }" class="downloadReceipt"
+                                       th:href="@{/buyer/cart/receipt/download/{orderId}(orderId=${orderDetail.id})}">Download Receipt</a>
+
+                                </td>
+
+                            </tr>
+                        </th:block>
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer">
+
+
+    </div>
+    <div th:replace="fragments/footer :: scripts"></div>
+</div>
+</body>
+</html>

@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
-    <meta charset="UTF-8">
-    <title>Header</title>
-</head>
+
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary" th:fragment="header">
     <a class="navbar-brand" href="#">Online Shopping</a>
@@ -12,8 +9,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText" sec:authorize="isAuthenticated()">
         <ul class="navbar-nav mr-auto" >
-            <li class="nav-item active" sec:authorize="hasAuthority('ADMIN')">
-                <a class="nav-link" th:href="@{/admin/index}">Users <span class="sr-only">(current)</span></a>
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
+                <a class="nav-link" th:href="@{/admin/users}">Users <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                 <a class="nav-link" href="#">Reviews</a>
@@ -21,13 +18,30 @@
             <li class="nav-item" sec:authorize="hasAuthority('BUYER')">
                 <a class="nav-link" th:href="@{/buyer/products}">Products</a>
             </li>
+            <li class="nav-item" sec:authorize="hasAuthority('BUYER')">
+                <a class="nav-link" th:href="@{/buyer/order/list}">My Orders</a>
+            </li>
+
+            <li class="nav-item" sec:authorize="hasAuthority('SELLER')">
+                <a class="nav-link" th:href="@{/seller/products}">My Products</a>
+            </li>
+            <li class="nav-item" sec:authorize="hasAuthority('SELLER')">
+                <a class="nav-link" th:href="@{/seller/order/list}">My Orders</a>
+            </li>
         </ul>
         <div class="form-inline my-2 my-lg-0" th:fragment="logout">
+
             <form action="#" th:action="@{/logout}" method="post">
                 <input class="btn btn-outline-success my-2 my-sm-0"  type="submit" value="Logout" />
             </form>
-            <a class="btn" th:href="@{/buyer/cart}">Cart</a>
+            <a class="btn btn-outline-info" sec:authorize="hasAuthority('BUYER')" th:href="@{/buyer/cart/show}">Cart</a>
         </div>
+
+    </div>
+    <div class="collapse navbar-collapse"  sec:authorize="isAnonymous()">
+        <ul class="navbar-nav mr-auto"></ul>
+
+        <a th:href="@{/login}"><button class="btn btn-outline-secondary my-2 my-lg-0">Login</button></a>
     </div>
 </nav>
 </body>

@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -21,7 +22,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty(message = "not empty")
@@ -37,10 +38,12 @@ public class Product {
 
     @ManyToOne
     @JoinColumn
+    @NotNull
     private Category category;
 
     @NotNull(message = "not null")
     @Column(name = "price")
+    @Min(value=1)
     private double unitPrice;
     @NotNull(message = "Please Select quantity")
     @Min(value = 1)
@@ -58,5 +61,9 @@ public class Product {
     private User supplier;
 
     private int purchases=0;
+
+    public boolean isActive(){
+        return this.active;
+    }
 }
 

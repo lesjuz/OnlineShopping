@@ -9,12 +9,15 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface ProductService {
-    Optional<Product> findById(Long id);
-    Optional<Product> findByName(String name);
+    Product findById(Long id);
+    Product findByName(String name);
     List<Product> findAll();
     Product save(Product role);
-    void deleteById(Long id);
 
     List<Product> findByCategory(Category category);
     List<Product> findByUser(Long id);
+    Long findBySupplierID(Long id);
+    Product updateProduct(Long id, Product product);
+    Product deleteProduct(Long id);
+    void updatedProductImage(long productId, String imgFileName);
 }

@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/admin")
+@RequestMapping(value = {"/admin"})
 public class AdminController {
     @Autowired
     private  UserService userService;
-    @GetMapping(value = "/")
+    @GetMapping(value = {"/","","/index","/users"})
     public String getUsers(User user, Model model){
         List<User> users=new ArrayList<>();
         users=userService.getAll();
@@ -31,7 +31,7 @@ public class AdminController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public String changeUserStatus(@RequestParam(value = "email", required = false) String email){
         User updatedUser=userService.findUserByEmail(email);
-        System.out.println(updatedUser);
+
         if(updatedUser!=null){
         if(updatedUser.getActive()==1){
 

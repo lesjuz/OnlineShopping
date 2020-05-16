@@ -4,9 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Setter
 @Getter
@@ -42,6 +44,26 @@ public class OrderItem implements Serializable {
 
     private double total;
 
+    private String status;
+
+
+    private Long seller;
+
+    private Long buyer;
+
+    @DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
+    private Date orderDate;
+
+    public boolean isStatusCreated(){
+        return status.equals("CREATED");
+    }
+    public boolean isStatusDelivered(){
+        return status.equals("DELIVERED");
+    }
+
+    public boolean isStatusShipped(){
+        return status.equals("SHIPPED");
+    }
 
 
 }

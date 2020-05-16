@@ -1,10 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+
+<head th:replace="fragments/head :: head">
+
 </head>
+
 <body>
-not found
+
+<div class="wrapper">
+
+    <!-- Navigation -->
+    <nav th:replace="fragments/header :: header">
+
+
+    </nav>
+
+    <!-- Page Content -->
+
+    <div class="content">
+
+        <div class="container">
+
+            <div class="row col-lg-12">
+
+                <div class="jumbotron">
+                    <h1 class="display-3">Hello, Dear User</h1>
+                    <hr class="my-4">
+                    <p>Sorry, this page is not found.</p>
+                    <p class="lead">
+                        <a class="btn btn-primary btn-lg" th:href="@{'/'}" role="button">Home Page</a>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- Footer comes here -->
+    <div th:replace="fragments/footer :: footer">
+
+
+    </div>
+
+    <div th:replace="fragments/footer :: scripts"></div>
+    <!-- Self coded javascript -->
+
+
+</div>
+
 </body>
+
 </html>

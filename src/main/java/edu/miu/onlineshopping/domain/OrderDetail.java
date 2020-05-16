@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -40,7 +41,10 @@ public class OrderDetail implements Serializable {
     private int orderCount;
 
     @Column(name="order_date")
+    @DateTimeFormat(pattern = "MM/dd/yyyy HH:mm:ss")
     private Date orderDate;
+
+
 
 
 }

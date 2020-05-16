@@ -141,6 +141,11 @@ public class CheckoutServiceImpl implements CheckoutService {
             orderItem.setProduct(cartLine.getProduct());
             orderItem.setProductCount(cartLine.getProductCount());
             orderItem.setTotal(cartLine.getTotal());
+            long sellerId=productService.findBySupplierID(cartLine.getProduct().getId());
+            orderItem.setSeller(sellerId);
+            orderItem.setBuyer(checkoutModel.getUser().getId());
+            orderItem.setStatus("CREATED");
+            orderItem.setOrderDate(new Date());
 
             orderItem.setOrderDetail(orderDetail);
             orderDetail.getOrderItems().add(orderItem);

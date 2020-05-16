@@ -1,17 +1,14 @@
 package edu.miu.onlineshopping.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 @Setter
 @Getter
-@ToString
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Address implements Serializable {
 
@@ -40,6 +37,8 @@ public class Address implements Serializable {
     @Column(name = "user_id")
     private Long userId;
 
-
-
+    @Override
+    public String toString() {
+        return city + ", " + state + ", " + street + ", " + zipCode + ", " + country;
+    }
 }

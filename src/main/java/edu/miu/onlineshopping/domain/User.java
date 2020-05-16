@@ -68,7 +68,6 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     private Cart cart;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private ShoppingHistory shoppingHistory;
+
 
 }

@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 
 <head th:replace="fragments/head :: head">
@@ -25,9 +24,9 @@
             <div class="row col-lg-12">
 
                 <div class="jumbotron">
-                    <h1 class="display-3">Hello, Dear User</h1>
+                    <h1 class="display-3">Something went wrong!</h1>
                     <hr class="my-4">
-                    <p>Sorry, you do not have permission to view this page.</p>
+                    <p>Our Engineers are on it</p>
                     <p class="lead">
                         <a class="btn btn-primary btn-lg" th:href="@{'/home'}" role="button">Home Page</a>
                     </p>

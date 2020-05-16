@@ -1,5 +1,4 @@
 
-
 .footer {
     position: fixed;
     bottom: 0;
@@ -21,6 +20,10 @@
     width:300px;
     height:300px;
     z-index: 9002;
+}
+.product-img{
+    max-height: 100px;
+    max-width: 120px;
 }
 
 /*

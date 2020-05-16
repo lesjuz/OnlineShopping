@@ -2,12 +2,16 @@ package edu.miu.onlineshopping.controller;
 
 
 import edu.miu.onlineshopping.domain.*;
-import edu.miu.onlineshopping.service.CartItemService;
-import edu.miu.onlineshopping.service.CartService;
-import edu.miu.onlineshopping.service.CheckoutService;
-import edu.miu.onlineshopping.service.ProductService;
+import edu.miu.onlineshopping.service.*;
+import edu.miu.onlineshopping.util.OrderReceipt;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 @Controller
@@ -29,6 +34,12 @@ public class CartController {
 
     @Autowired
     private CheckoutService checkoutService;
+
+    @Autowired
+    private OrderDetailService orderDetailService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/show")
     public ModelAndView showCart(@RequestParam(name = "result", required = false) String result) {
@@ -163,6 +174,28 @@ public class CartController {
 
 
         return "orderReceipt";
+    }
+    @RequestMapping(value = "/receipt/download/{orderId}", produces = MediaType.APPLICATION_PDF_VALUE)
+    @ResponseBody
+    public ResponseEntity<InputStreamResource> downloadReceipt(@PathVariable("orderId") long orderId) throws NotFoundException {
+
+        OrderDetail order = orderDetailService.getOrderDetailByUser(getBuyer(), orderId);
+        ByteArrayInputStream bis = OrderReceipt.Report(order);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "inline; filename=orderReceipt.pdf");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(bis));
+    }
+    public User getBuyer(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User buyer=userService.findUserByEmail(email);
+        return buyer;
     }
 }
 

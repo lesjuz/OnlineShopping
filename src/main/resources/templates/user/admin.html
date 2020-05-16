@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" >
 
 
 <head th:replace="fragments/head :: head">
@@ -44,7 +44,10 @@
                         <td th:text="${user.email}"></td>
                         <td th:text="${user.phoneNumber}"></td>
                         <td th:text="${user.address.country}"></td>
-                        <td  th:text="${user.active==1} ? 'ACTIVE' : 'DISACTIVE'"></td>
+                        <td>
+                            <h5 th:if="${user.active==1}"><span class="badge badge-success"th:text="${'ACTIVETED'}"></span></h5>
+                            <h5 th:if="${user.active==0}"><span class="badge badge-danger"th:text="${'DISACTIVETED'}"></span></h5>
+                        </td>
                         <td><a class="btn btn-info" th:href="@{/admin/users/status(email=${user.email})}">Update Status</a></td>
                     </tr>
                     </tbody>

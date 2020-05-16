@@ -1,9 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body>
 <head th:fragment="head">
 
     <meta charset="utf-8">
@@ -15,17 +11,19 @@
     <title>Online Shopping</title>
     <link rel="shortcut icon" th:href="@{/images/icon.png}">
     <!-- Bootstrap Core CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link th:href="@{/css/bootstrap.min.css}"  href="../static/css/bootstrap.min.css" rel="stylesheet" type="text/css" >
 
     <!-- Bootstrap Readable Theme -->
-    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-yrfSO0DBjS56u5M+SjWTyAHujrkiYVtRYh2dtB3yLQtUz3bodOeialO59u5lUCFF" crossorigin="anonymous">
-    <link th:href="@{/css/fontawesame.min.css}" href="../static/css/fontawesame.min.css" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/bootstrapTheme.min.css}"  href="../static/css/bootstrapTheme.min.css" rel="stylesheet" type="text/css" >
+    <link th:href="@{/css/fontawesome.min.css}" href="../static/css/fontawesome.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
     <!-- Custom CSS -->
-    <link th:href="@{/css/main.css}" href="../static/css/main.css" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/style.css}"  rel="stylesheet" type="text/css"/>
 
 
 
 </head>
+<body>
+
 </body>
 </html>

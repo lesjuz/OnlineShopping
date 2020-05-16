@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 
 <head th:replace="fragments/head :: head">
@@ -106,6 +106,7 @@
             </div>
             <div class="text-center">
                 <a th:href="@{/buyer/products}" class="btn btn-lg btn-warning">Continue Shopping</a>
+                <a target="_blank" th:href="@{/buyer/cart/receipt/download/{orderId}(orderId=${orderDetail.id})}" class="btn btn-lg btn-info">Download Order receipt</a>
             </div>
 
 
